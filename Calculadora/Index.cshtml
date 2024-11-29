@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .display {
+            background-color: #262626;
+            color: white;
+            font-size: 2rem;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            min-height: 50px;
+            word-wrap: break-word;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            background-color: #333;
+            color: white;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button.operator {
+            background-color: #ff9500;
+        }
+        .button:active {
+            background-color: #555;
+        }
+    </style>
+    <div class="calculator">
+        <div id="display" class="display">@ViewBag.Display ?? "0"</div>
+        <div class="buttons">
+            <button class="button" onclick="press('7')">7</button>
+            <button class="button" onclick="press('8')">8</button>
+            <button class="button" onclick="press('9')">9</button>
+            <button class="button operator" onclick="press('/')">÷</button>
+
+            <button class="button" onclick="press('4')">4</button>
+            <button class="button" onclick="press('5')">5</button>
+            <button class="button" onclick="press('6')">6</button>
+            <button class="button operator" onclick="press('*')">x</button>
+
+            <button class="button" onclick="press('1')">1</button>
+            <button class="button" onclick="press('2')">2</button>
+            <button class="button" onclick="press('3')">3</button>
+            <button class="button operator" onclick="press('-')">-</button>
+
+            <button class="button" onclick="press('0')">0</button>
+            <button class="button" onclick="press('.')">.</button>
+            <button class="button operator" onclick="calculate()">=</button>
+            <button class="button operator" onclick="press('+')">+</button>
+        </div>
+         <form id="calculatorForm" method="post" style="display: none;">
+        <input type="hidden" id="expression" name="expression" />
+    </form>
+    </div>
+ 
+<script>
+        let currentExpression = "";
+
+        function press(value) {
+            currentExpression += value;
+            document.getElementById("display").innerText = currentExpression;
+        }
+
+        function calculate() {
+            document.getElementById("expression").value = currentExpression;
+            document.getElementById("calculatorForm").submit();
+        }
+    </script>
+  </div>
